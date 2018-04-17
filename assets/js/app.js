@@ -1298,7 +1298,6 @@ $(document).ready(function() {
 $("#refresh-btn").click(function() {
   featureLayer.clearLayers();
   featureLayer1.clearLayers();
-  map.setView([40.5912,-111.837],9)
   $.getJSON(config.geojson, function (data) {
     geojson = data;
     legendItems = {};
