@@ -1,3 +1,68 @@
+
+
+checkAuth();
+bindUIActions();
+
+
+function bindUIActions() {
+  $("#login-btn").click(function() {
+    login();
+  });
+
+  $("#login-modal").on("shown.bs.modal", function (e) {
+    $(".modal-backdrop").css("opacity", "1");
+  });
+
+  $("#login-modal").on("hidden.bs.modal", function (e) {
+    $(".modal-backdrop").css("opacity", "");
+  });
+};
+
+function checkAuth() {
+  if (!localStorage.getItem("fulcrum_app_token")) {
+    $(document).ready(function() {
+      $("#login-modal").modal("show");
+    });
+  } else {
+    $("#login-modal").modal("hide");
+  }
+};
+
+function login() {
+  var username = $("#email").val();
+  var password = $("#password").val();
+  $.ajax({
+    type: "GET",
+    url: "https://api.fulcrumapp.com/api/v2/users.json",
+    contentType: "application/json",
+    dataType: "json",
+    headers: {
+      "Authorization": "Basic " + btoa(username + ":" + password)
+    },
+    statusCode: {
+      401: function() {
+        alert("Incorrect credentials, please try again.");
+      }
+    },
+    success: function (data) {
+      $.each(data.user.contexts, function(index, context) {
+        if (context.name == "Tilson SLC") {
+          localStorage.setItem("fulcrum_app_token", btoa(context.api_token));
+          localStorage.setItem("fulcrum_userfullname", data.user.first_name + " " + data.user.last_name);
+          localStorage.setItem("fulcrum_useremail", data.user.email);
+        }
+      });
+      if (!localStorage.getItem("fulcrum_app_token")) {
+        alert("This login does not have access to the Tilson DataMap.");
+      }
+      checkAuth();
+    }
+  });
+};
+
+
+// Configuration of Routes in Fulcrum
+
 var config = {
   geojson: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94.geojson",
   title: "SLC OneFiber Tilson QC",
@@ -304,6 +369,93 @@ var properties = [{
 }];
 
 
+// Configuration of Restoration in Fulcrum
+
+var config1 = {
+  geojson: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94.geojson?child=restoration_repeat",
+  layerName: "Restoration",
+  hoverProperty: "restoration_items",
+  sortProperty: "date_resto",
+  sortOrder: "ascend",
+};
+
+var properties1 = [{
+  value: "restoration_items",
+  label: "Restoration Type",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "date_resto",
+  label: "Restoration Date",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "date"
+  }
+},
+{
+  value: "restoration_complete_contractor",
+  label: "Restoration Complete (Contractor)",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "restoration_complete_tilson",
+  label: "Restoration Complete (Tilson)",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "dirt_resto_b_cx_url",
+  label: "Dirt Pictures",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+}];
+
+
 
 function drawCharts() {
   // HUB COMPLETE
@@ -385,8 +537,6 @@ function drawCharts() {
 
 $(function() {
   $(".title").html(config.title);
-  $("#layer-name").html(config.layerName);
-  $("#layer-name2").html("SLC LLD Route");
 });
 
 function buildConfig() {
@@ -564,7 +714,62 @@ var featureLayer = L.geoJson(null, {
 });
 
 
-// Fetch the GeoJSON file
+
+var featureLayer1 = L.geoJson(null, {
+  pointToLayer: function (feature, latlng) {
+    return L.marker(latlng, {
+      title: feature.properties["restoration_items"],
+      riseOnHover: true,
+      icon: L.icon({
+        iconUrl: "assets/pictures/markers/242424.png",
+        iconSize: [30, 40],
+        iconAnchor: [15, 32]
+      })
+    });
+  },
+  onEachFeature: function (feature, layer) {
+    if (feature.properties) {
+      layer.on({
+        click: function (e) {
+          identifyFeature1(L.stamp(layer));
+          highlightLayer.clearLayers();
+          highlightLayer.addData(featureLayer1.getLayer(L.stamp(layer)).toGeoJSON());
+        },
+        mouseover: function (e) {
+          if (config1.hoverProperty) {
+            $(".info-control").html(feature.properties[config1.hoverProperty]);
+            $(".info-control").show();
+          }
+        },
+        mouseout: function (e) {
+          $(".info-control").hide();
+        }
+      });
+      if (feature.properties.restoration_complete_contractor === "Yes") {
+        layer.setIcon(
+          L.icon({
+            iconUrl: "assets/pictures/markers/b3b3b3.png",
+            iconSize: [30, 40],
+            iconAnchor: [15, 32]
+          })
+        );
+      } else if (feature.properties.restoration_complete_contractor === "Yes" && feature.properties.restoration_complete_tilson === "Yes") {
+        layer.setIcon(
+          L.icon({
+            iconUrl: "assets/pictures/markers/ffffff.png",
+            iconSize: [30, 40],
+            iconAnchor: [15, 32]
+          })
+        );
+      }
+    }
+  }
+});
+
+
+
+
+// Fetch the Routes GeoJSON file
 
 $.getJSON(config.geojson, function (data) {
   geojson = data;
@@ -605,8 +810,22 @@ $.getJSON(config.geojson, function (data) {
   }
 });
 
+
+// Fetch the Restoration GeoJSON file
+
+$.getJSON(config1.geojson, function (data) {
+  geojson = data
+  features = $.map(geojson.features, function(feature) {
+    return feature.properties;
+  });
+  featureLayer1.addData(data);
+  $("#loading-mask").hide();
+});
+
+
+
 var map = L.map("map", {
-  layers: [mapboxOSM, SLCLLDRoute, featureLayer, highlightLayer]
+  layers: [mapboxOSM, SLCLLDRoute, featureLayer, featureLayer1, highlightLayer]
 }).fitWorld();
 
 
@@ -644,8 +863,9 @@ var baseLayers = {
   "SLC LLD Route": SLCLLDRoute,
 };
 var overlayLayers = {
-  "<span id='layer-name'>GeoJSON Layer</span>": featureLayer,
-  "<span id='layer-name2'>GeoJSON Layer</span>": SLCLLDRoute,
+  "<span id='layer-name'>Routes</span>": featureLayer,
+  "<span id='layer-name1'>Restoration</span>": featureLayer1,
+  "<span id='layer-name2'>Engineered</span>": SLCLLDRoute,
 };
 
 
@@ -806,6 +1026,52 @@ function identifyFeature(id) {
   $("#feature-info").html(content);
   $("#featureModal").modal("show");
 }
+
+
+function identifyFeature1(id) {
+  var featureProperties = featureLayer1.getLayer(id).feature.properties;
+  var content = "<table class='table table-striped table-bordered table-condensed'>";
+  var photoLink = "https://web.fulcrumapp.com/photos/view?photos=";
+  $.each(featureProperties, function(key, value) {
+    if (!value) {
+      value = "";
+    }
+    if (typeof value == "string"  && value.indexOf("https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos") === 0) {
+      value = "<a href='#' onclick='photoGallery(\"" + value + "\"); return false;'>View Photos</a>";
+    }
+    $.each(properties1, function(index, property) {
+      if (key == property.value) {
+        if (property.info !== false) {
+          content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
+        }
+      }
+    });
+  });
+  content += "<table>";
+  $("#feature-info").html(content);
+  $("#featureModal").modal("show");
+};
+
+
+function photoGallery(photos) {
+  var photoArray = [];
+  var photoIDs = photos.split("photos=")[1];
+  $.each(photoIDs.split("%2C"), function(index, id) {
+    photoArray.push({href: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos/" + id});
+  });
+  $.fancybox(photoArray, {
+    "type": "image",
+    "showNavArrows": true,
+    "padding": 0,
+    "scrolling": "no",
+    beforeShow: function () {
+      this.title = "Photo " + (this.index + 1) + " of " + this.group.length + (this.title ? " - " + this.title : "");
+    }
+  });
+  return false;
+};
+
+
 
 function switchView(view) {
   if (view == "split") {
@@ -1031,6 +1297,7 @@ $(document).ready(function() {
 
 $("#refresh-btn").click(function() {
   featureLayer.clearLayers();
+  featureLayer1.clearLayers();
   map.setView([40.5912,-111.837],9)
   $.getJSON(config.geojson, function (data) {
     geojson = data;
@@ -1048,6 +1315,15 @@ $("#refresh-btn").click(function() {
   map.fitBounds(featureLayer.getBounds());
   $(".navbar-collapse.in").collapse("hide");
   return false;
+
+  $.getJSON(config1.geojson, function (data) {
+    geojson = data
+    features = $.map(geojson.features, function(feature) {
+      return feature.properties;
+    });
+    featureLayer1.addData(data);
+    $("#loading-mask").hide();
+  });
 });
 
 $("#about-btn").click(function() {
@@ -1108,12 +1384,28 @@ $("#legend-btn").click(function() {
   return false;
 });
 
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1;
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '.' + dd + '.' + yyyy;
+
+
 $("#download-csv-btn").click(function() {
   $("#table").tableExport({
     headings: true,
     type: "csv",
     ignoreColumn: [0],
-    fileName: "SLC OneFiber Construction"
+    fileName: "DataMap_"+ today +""
   });
   $(".navbar-collapse.in").collapse("hide");
   return false;
@@ -1124,7 +1416,7 @@ $("#download-excel-btn").click(function() {
     headings: true,
     type: "excel",
     ignoreColumn: [0],
-    fileName: "SLC OneFiber Construction"
+    fileName: "DataMap_"+ today +""
   });
   $(".navbar-collapse.in").collapse("hide");
   return false;
@@ -1134,7 +1426,7 @@ $("#download-pdf-btn").click(function() {
   $("#table").tableExport({
     type: "pdf",
     ignoreColumn: [0],
-    fileName: "SLC OneFiber Construction",
+    fileName: "DataMap_"+ today +"",
     jspdf: {
       format: "bestfit",
       margins: {
