@@ -669,7 +669,7 @@ var highlightLayer = L.geoJson(null, {
 
 var featureLayer = L.geoJson(null, {
   filter: function(feature, layer) {
-    return feature.geometry.coordinates[0] !== 0 && feature.geometry.coordinates[1] !== 0;
+    if (feature.properties.contractor != "Tilson") return true;
   },
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, {
