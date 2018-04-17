@@ -1309,13 +1309,6 @@ $("#refresh-btn").click(function() {
     buildConfig();
     $("#loading-mask").hide();
   });
-  syncTable();
-  buildTable();
-  buildFilters();
-  map.fitBounds(featureLayer.getBounds());
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-
   $.getJSON(config1.geojson, function (data) {
     geojson = data
     features = $.map(geojson.features, function(feature) {
@@ -1324,6 +1317,12 @@ $("#refresh-btn").click(function() {
     featureLayer1.addData(data);
     $("#loading-mask").hide();
   });
+  syncTable();
+  buildTable();
+  buildFilters();
+  map.fitBounds(featureLayer.getBounds());
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
 });
 
 $("#about-btn").click(function() {
