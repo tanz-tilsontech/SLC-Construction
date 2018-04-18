@@ -437,10 +437,12 @@ var properties1 = [{
     operators: ["in", "not_in", "equal", "not_equal"],
     values: []
   }
-},
-{
+}];
+
+
+var restoBeforeProps = [{
   value: "dirt_resto_b_cx_url",
-  label: "Pictures",
+  label: "Dirt",
   table: {
     visible: false,
     sortable: false
@@ -453,7 +455,71 @@ var properties1 = [{
     operators: ["in", "not_in", "equal", "not_equal"],
     values: []
   }
-}];
+},
+{
+  value: "concrete_resto_b_cx_url",
+  label: "Concrete",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "asphalt_resto_b_cx_url",
+  label: "Asphalt",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "start_handhole_resto_b_cx_url",
+  label: "Start Handhole",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "end_handhole_resto_b_cx_url",
+  label: "End Handhole",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+}
 
 
 
@@ -1060,7 +1126,7 @@ function restoPics() {
 
 
 function dirtRestoBefore(id) {
-  var featureProperties = featureLayer1.feature.properties.dirt_resto_b_cx_url;
+  var featureProperties = featureLayer1.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
   var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
   $.each(featureProperties, function(key, value) {
@@ -1070,7 +1136,7 @@ function dirtRestoBefore(id) {
     if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
       value = "<a href='#' onclick='photoGallery(\""+ value +"\")'; return false;'>View Photos</a>";
     }
-    $.each(properties1, function(index, property) {
+    $.each(restoBeforeProps, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
           content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
