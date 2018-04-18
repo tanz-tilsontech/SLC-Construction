@@ -1037,7 +1037,7 @@ function identifyFeature1(id) {
       value = "";
     }
     if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
-      value = "<a href='#' onclick="open('restoPicModal');">View Photos</a>";
+      value = "<a href='#' onclick="open("#restoPicModal");">View Photos</a>";
     }
     $.each(properties1, function(index, property) {
       if (key == property.value) {
