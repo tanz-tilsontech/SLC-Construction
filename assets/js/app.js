@@ -1102,9 +1102,6 @@ function identifyFeature1(id) {
     if (!value) {
       value = "";
     }
-    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
-      value = "<a href='#' onclick='restoPics()'; return false;'>View Photos</a>";
-    }
     $.each(properties1, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
@@ -1119,10 +1116,10 @@ function identifyFeature1(id) {
 };
 
 
-function restoPics() {
+$("#restoPicturesBtn").click(function() {
   $("#restoPicModal").modal("show");
   return false;
-};
+});
 
 
 function dirtRestoBefore(id) {
