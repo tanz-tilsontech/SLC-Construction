@@ -798,6 +798,7 @@ var featureLayer1 = L.geoJson(null, {
       layer.on({
         click: function (e) {
           identifyFeature1(L.stamp(layer));
+          RestoBeforePics(L.stamp(layer));
           highlightLayer.clearLayers();
           highlightLayer.addData(featureLayer1.getLayer(L.stamp(layer)).toGeoJSON());
         },
