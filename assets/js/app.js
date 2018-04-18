@@ -1102,10 +1102,7 @@ function identifyFeature1(id) {
     if (!value) {
       value = "";
     }
-    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
-      value = "<a href='#' onclick='photoGallery(\""+ value +"\")'; return false;'>View Photos</a>";
-    }
-    $.each(restoBeforeProps, function(index, property) {
+    $.each(properties1, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
           content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
@@ -1125,7 +1122,7 @@ $("#restoPicturesBtn").click(function() {
 });
 
 
-function dirtRestoBefore(id) {
+function RestoBeforePics(id) {
   var featureProperties = featureLayer1.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
   var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
@@ -1145,7 +1142,7 @@ function dirtRestoBefore(id) {
     });
   });
   content += "<table>";
-  $("#restoPics").html(content);
+  $("#restoBeforePics").html(content);
 };
 
 
