@@ -1054,6 +1054,7 @@ function identifyFeature1(id) {
 
 
 function restoPics() {
+  $("#featureModal").modal("hide");
   $("#legend-modal").modal("show");
   return false;
 };
