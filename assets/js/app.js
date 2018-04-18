@@ -439,7 +439,7 @@ var properties1 = [{
   }
 },
 {
-  value: ["dirt_resto_b_cx_url", "concrete_resto_b_cx", "asphalt_resto_b_cx", "start_handhole_resto_b_cx", "end_handhole_resto_b_cx"],
+  value: "dirt_resto_b_cx_url",
   label: "Pictures",
   table: {
     visible: false,
