@@ -452,21 +452,6 @@ var properties1 = [{
     multiple: true,
     operators: ["in", "not_in", "equal", "not_equal"],
     values: []
-  },
-{
-  value: "dirt_resto_b_cx_url",
-  label: "Dirt Pictures",
-  table: {
-    visible: true,
-    sortable: true
-  },
-  filter: {
-    type: "string",
-    input: "checkbox",
-    vertical: true,
-    multiple: true,
-    operators: ["in", "not_in", "equal", "not_equal"],
-    values: []
   }
 }];
 
