@@ -452,6 +452,21 @@ var properties1 = [{
     multiple: true,
     operators: ["in", "not_in", "equal", "not_equal"],
     values: []
+  },
+{
+  value: "dirt_resto_b_cx_url",
+  label: "Dirt Pictures",
+  table: {
+    visible: true,
+    sortable: true
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
   }
 }];
 
@@ -1031,13 +1046,16 @@ function identifyFeature(id) {
 function identifyFeature1(id) {
   var featureProperties = featureLayer1.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
-  var photoLink = "https://web.fulcrumapp.com/photos/view?photos=";
+  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
   $.each(featureProperties, function(key, value) {
     if (!value) {
       value = "";
     }
-    if (typeof value == "string"  && value.indexOf("https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos") === 0) {
-      value = "<a href='#' onclick='photoGallery(\"" + value + "\"); return false;'>View Photos</a>";
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick="function() {
+        $("#restoPicModal").modal("show");
+        return false;
+      };">View Photos</a>";
     }
     $.each(properties1, function(index, property) {
       if (key == property.value) {
@@ -1051,6 +1069,13 @@ function identifyFeature1(id) {
   $("#feature-info").html(content);
   $("#featureModal").modal("show");
 };
+
+
+$("#sites-btn").click(function() {
+  $("#sites-modal").modal("show");
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
 
 
 function photoGallery(photos) {
