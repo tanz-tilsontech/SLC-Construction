@@ -1142,7 +1142,7 @@ function dirtRestoBefore(id) {
     });
   });
   content += "<table>";
-  $("#restoBefore").html(content);
+  $("#restoPics").html(content);
 };
 
 
