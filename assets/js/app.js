@@ -1037,10 +1037,7 @@ function identifyFeature1(id) {
       value = "";
     }
     if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
-      value = "<a href='#' onclick="function() {
-        $("#restoPicModal").modal("show");
-        return false;
-      };">View Photos</a>";
+      value = "<a href='#' onclick="restoPics()">View Photos</a>";
     }
     $.each(properties1, function(index, property) {
       if (key == property.value) {
@@ -1056,11 +1053,10 @@ function identifyFeature1(id) {
 };
 
 
-$("#sites-btn").click(function() {
-  $("#sites-modal").modal("show");
-  $(".navbar-collapse.in").collapse("hide");
+function restoPics() {
+  $("#srestoPicModal").modal("show");
   return false;
-});
+};
 
 
 function photoGallery(photos) {
