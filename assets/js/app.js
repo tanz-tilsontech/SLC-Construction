@@ -519,7 +519,7 @@ var restoBeforeProps = [{
     operators: ["in", "not_in", "equal", "not_equal"],
     values: []
   }
-}
+}];
 
 
 
