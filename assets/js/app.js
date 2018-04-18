@@ -1037,7 +1037,7 @@ function identifyFeature1(id) {
       value = "";
     }
     if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
-      value = "<a href="javascript:restoPics">View Photos</a>";
+      value = "<a href='#' onclick='restoPics()'; return false;'>View Photos</a>";
     }
     $.each(properties1, function(index, property) {
       if (key == property.value) {
@@ -1054,8 +1054,7 @@ function identifyFeature1(id) {
 
 
 function restoPics() {
-  $("#featureModal").modal("hide");
-  $("#legend-modal").modal("show");
+  $("#restoPicModal").modal("show");
   return false;
 };
 
