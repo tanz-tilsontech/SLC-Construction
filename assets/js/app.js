@@ -439,11 +439,11 @@ var properties1 = [{
   }
 },
 {
-  value: "dirt_resto_b_cx_url",
-  label: "Dirt Pictures",
+  value: ["dirt_resto_b_cx_url", "concrete_resto_b_cx", "asphalt_resto_b_cx", "start_handhole_resto_b_cx", "end_handhole_resto_b_cx"],
+  label: "Pictures",
   table: {
-    visible: true,
-    sortable: true
+    visible: false,
+    sortable: false
   },
   filter: {
     type: "string",
@@ -1056,6 +1056,30 @@ function identifyFeature1(id) {
 function restoPics() {
   $("#restoPicModal").modal("show");
   return false;
+};
+
+
+function dirtRestoBefore(id) {
+  var featureProperties = featureLayer1.feature.properties.dirt_resto_b_cx_url;
+  var content = "<table class='table table-striped table-bordered table-condensed'>";
+  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
+  $.each(featureProperties, function(key, value) {
+    if (!value) {
+      value = "";
+    }
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick='photoGallery(\""+ value +"\")'; return false;'>View Photos</a>";
+    }
+    $.each(properties1, function(index, property) {
+      if (key == property.value) {
+        if (property.info !== false) {
+          content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
+        }
+      }
+    });
+  });
+  content += "<table>";
+  $("#restoBefore").html(content);
 };
 
 
