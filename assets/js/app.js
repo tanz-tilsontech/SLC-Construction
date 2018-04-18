@@ -1160,7 +1160,8 @@ function photoGallery(photos) {
     "scrolling": "no",
     "buttons": [
       "zoom",
-      "fullscreen"
+      "fullscreen",
+      "download"
     ],
     beforeShow: function () {
       this.title = "Photo " + (this.index + 1) + " of " + this.group.length + (this.title ? " - " + this.title : "");
