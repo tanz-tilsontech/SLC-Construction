@@ -1158,6 +1158,10 @@ function photoGallery(photos) {
     "showNavArrows": true,
     "padding": 0,
     "scrolling": "no",
+    "buttons": [
+      "zoom",
+      "fullscreen"
+    ],
     beforeShow: function () {
       this.title = "Photo " + (this.index + 1) + " of " + this.group.length + (this.title ? " - " + this.title : "");
     }
