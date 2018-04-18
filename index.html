@@ -206,15 +206,26 @@
     </div>
 
     <div class="modal fade" id="restoPicModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title">Pictures</h4>
           </div>
-          <div class="modal-body" id="restoBeforePics"></div>
+          <div class="modal-body" id="restoPics">
+            <div role="tabpanel">
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#restoBeforePics" aria-controls="beforePics" role="tab" data-toggle="tab">Before Pictures</a></li>
+                <li role="presentation"><a href="#restoAfterPics" aria-controls="afterPics" role="tab" data-toggle="tab">After Pictures</a></li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="restoBefore"></div>
+                <div role="tabpanel" class="tab-pane" id="restoAfter"></div>
+              </div>
+            </div>
+          </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
