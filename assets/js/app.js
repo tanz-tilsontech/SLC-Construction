@@ -1102,7 +1102,10 @@ function identifyFeature1(id) {
     if (!value) {
       value = "";
     }
-    $.each(properties1, function(index, property) {
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick='photoGallery(\""+ value +"\")'; return false;'>View Photos</a>";
+    }
+    $.each(restoBeforeProps, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
           content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
