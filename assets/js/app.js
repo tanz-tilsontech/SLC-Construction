@@ -1054,7 +1054,7 @@ function identifyFeature1(id) {
 
 
 function restoPics() {
-  $("#srestoPicModal").modal("show");
+  $("#restoPicModal").modal("show");
   return false;
 };
 
