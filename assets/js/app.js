@@ -523,7 +523,7 @@ var restoBeforeProps = [{
 
 
 var featureBluestakesVid = [{
-  value: "locates_cx_url",
+  value: "locates_cx_urls",
   label: "BlueStakes",
   table: {
     visible: false,
