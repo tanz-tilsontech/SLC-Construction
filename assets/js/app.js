@@ -794,7 +794,6 @@ var featureLayer = L.geoJson(null, {
           identifyFeature(L.stamp(layer));
           featureBluestakes(L.stamp(layer));
           featurePotholePics(L.stamp(layer));
-          featureDirections(L.stamp(layer));
           highlightLayer.clearLayers();
           highlightLayer.addData(featureLayer.getLayer(L.stamp(layer)).toGeoJSON());
         },
@@ -1140,9 +1139,11 @@ function featureDirections(id) {
     }
     $.each(properties, function(index, property) {
       if (key == property.value) {
-        if (typeof property.value == "string"  && property.value.indexOf("https://www.google") === 0) {
-          document.getElementById('featureGPS').setAttribute = ("href", value);
-        }
+        if (property.value.includes("https://www.google")) {
+          function gpsDirections() {
+            window.open(value)
+          };
+        };
       }
     });
   });
