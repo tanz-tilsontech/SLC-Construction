@@ -522,14 +522,14 @@ var restoBeforeProps = [{
 }];
 
 
-var featureBluestakesVid = {
+var featureBluestakesVid = [{
   value: "locates_cx_url",
   label: "BlueStakes",
   table: {
     visible: false,
     sortable: false
   }
-};
+}];
 
 
 
