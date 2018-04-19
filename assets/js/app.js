@@ -529,6 +529,14 @@ var featureBluestakesVid = [{
     visible: false,
     sortable: false
   }
+},
+{
+  value: "locates_cx",
+  label: "BlueStakes",
+  table: {
+    visible: false,
+    sortable: false
+  }
 }];
 
 
@@ -1109,7 +1117,6 @@ function identifyFeature1(id) {
   var featureProperties = featureLayer1.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
   var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
-  var videoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
   $.each(featureProperties, function(key, value) {
     if (!value) {
       value = "";
@@ -1168,7 +1175,7 @@ $("#featureBluestakes").click(function() {
 function featureBluestakes(id) {
   var featureProperties = featureLayer.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
-  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/video";
+  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/videos";
   $.each(featureProperties, function(key, value) {
     if (!value) {
       value = "";
