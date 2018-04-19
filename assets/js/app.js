@@ -522,6 +522,17 @@ var restoBeforeProps = [{
 }];
 
 
+var featureBluestakesVid = [{
+  value: "locates_cx_url",
+  label: "BlueStakes",
+  table: {
+    visible: false,
+    sortable: false
+  }
+}];
+
+
+
 var potholePictures = [{
   value: "asphalt_potholes_url",
   label: "Asphalt",
@@ -779,6 +790,7 @@ var featureLayer = L.geoJson(null, {
       layer.on({
         click: function (e) {
           identifyFeature(L.stamp(layer));
+          featureBluestakes(L.stamp(layer));
           featurePotholePics(L.stamp(layer));
           highlightLayer.clearLayers();
           highlightLayer.addData(featureLayer.getLayer(L.stamp(layer)).toGeoJSON());
@@ -1175,10 +1187,35 @@ function RestoBeforePics(id) {
 
 
 
-$("#featurePictures").click(function() {
-  $("#featuresPicturesModal").modal("show");
+$("#featureBluestakes").click(function() {
+  $("#bluestakesModal").modal("show");
   return false;
 });
+
+
+function featureBluestakes(id) {
+  var featureProperties = featureLayer.getLayer(id).feature.properties;
+  var content = "<table class='table table-striped table-bordered table-condensed'>";
+  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/videos";
+  $.each(featureProperties, function(key, value) {
+    if (!value) {
+      value = "";
+    }
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick='videoGallery(\""+ value +"\")'; return false;'>View Video</a>";
+    }
+    $.each(featureBluestakesVid, function(index, property) {
+      if (key == property.value) {
+        if (property.info !== false) {
+          content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
+        }
+      }
+    });
+  });
+  content += "<table>";
+  $("#bluestakesModalBody").html(content);
+};
+
 
 
 function featurePotholePics(id) {
@@ -1218,6 +1255,24 @@ function photoGallery(photos) {
     "scrolling": "no",
     beforeShow: function () {
       this.title = "Photo " + (this.index + 1) + " of " + this.group.length + (this.title ? " - " + this.title : "");
+    }
+  });
+  return false;
+};
+
+function videoGallery(photos) {
+  var photoArray = [];
+  var photoIDs = photos.split("videos=")[1];
+  $.each(photoIDs.split("%2C"), function(index, id) {
+    photoArray.push({href: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/videos/" + id});
+  });
+  $.fancybox(photoArray, {
+    "type": "iframe",
+    "showNavArrows": true,
+    "padding": 0,
+    "scrolling": "no",
+    beforeShow: function () {
+      this.title = "Video " + (this.index + 1) + " of " + this.group.length + (this.title ? " - " + this.title : "");
     }
   });
   return false;
