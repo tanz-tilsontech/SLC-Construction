@@ -1218,6 +1218,12 @@ function featureBluestakes(id) {
 
 
 
+$("#featurePictures").click(function() {
+  $("#featuresPicturesModal").modal("show");
+  return false;
+});
+
+
 function featurePotholePics(id) {
   var featureProperties = featureLayer.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
@@ -1264,7 +1270,7 @@ function videoGallery(photos) {
   var photoArray = [];
   var photoIDs = photos.split("videos=")[1];
   $.each(photoIDs.split("%2C"), function(index, id) {
-    photoArray.push({href: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/videos/" + id});
+    photoArray.push({href: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/videos/" + id +"/play"});
   });
   $.fancybox(photoArray, {
     "type": "iframe",
