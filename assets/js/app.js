@@ -1112,8 +1112,8 @@ function identifyFeature1(id) {
     });
   });
   content += "<table>";
-  $("#feature-info").html(content);
-  $("#featureModal").modal("show");
+  $("#feature-info1").html(content);
+  $("#feature1Modal").modal("show");
 };
 
 
