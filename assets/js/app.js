@@ -529,14 +529,6 @@ var featureBluestakesVid = [{
     visible: false,
     sortable: false
   }
-},
-{
-  value: "locates_cx",
-  label: "BlueStakes",
-  table: {
-    visible: false,
-    sortable: false
-  }
 }];
 
 
@@ -1167,7 +1159,7 @@ function RestoBeforePics(id) {
 
 
 $("#featureBluestakes").click(function() {
-  $("#featureBluestakesModal").modal("show");
+  $("#bluestakesModal").modal("show");
   return false;
 });
 
@@ -1180,6 +1172,9 @@ function featureBluestakes(id) {
     if (!value) {
       value = "";
     }
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick='videoGallery(\""+ value +"\")'; return false;'>View Video</a>";
+    }
     $.each(featureBluestakesVid, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
@@ -1189,7 +1184,7 @@ function featureBluestakes(id) {
     });
   });
   content += "<table>";
-  $("#featureBlueS").html(content);
+  $("#bluestakesModalBody").html(content);
 };
 
 
