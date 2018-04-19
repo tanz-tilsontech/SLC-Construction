@@ -1141,9 +1141,7 @@ function featureDirections(id) {
     $.each(properties, function(index, property) {
       if (key == property.value) {
         if (typeof property.value == "string"  && property.value.indexOf("https://www.google") === 0) {
-          $("#featureGPS").click(function() {
-            window.open(property.value)
-          });
+          document.getElementById('featureGPS').href = value
         }
       }
     });
