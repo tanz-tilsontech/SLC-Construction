@@ -19,7 +19,7 @@ function bindUIActions() {
 };
 
 function checkAuth() {
-  if (!sessionStorage.getItem("fulcrum_app_token")) {
+  if (!localStorage.getItem("fulcrum_app_token")) {
     $(document).ready(function() {
       $("#login-modal").modal("show");
     });
@@ -47,12 +47,12 @@ function login() {
     success: function (data) {
       $.each(data.user.contexts, function(index, context) {
         if (context.name == "Tilson SLC") {
-          sessionStorage.setItem("fulcrum_app_token", btoa(context.api_token));
-          sessionStorage.setItem("fulcrum_userfullname", data.user.first_name + " " + data.user.last_name);
-          sessionStorage.setItem("fulcrum_useremail", data.user.email);
+          localStorage.setItem("fulcrum_app_token", btoa(context.api_token));
+          localStorage.setItem("fulcrum_userfullname", data.user.first_name + " " + data.user.last_name);
+          localStorage.setItem("fulcrum_useremail", data.user.email);
         }
       });
-      if (!sessionStorage.getItem("fulcrum_app_token")) {
+      if (!localStorage.getItem("fulcrum_app_token")) {
         alert("This login does not have access to the Tilson DataMap.");
       }
       checkAuth();
@@ -518,6 +518,16 @@ var restoBeforeProps = [{
     multiple: true,
     operators: ["in", "not_in", "equal", "not_equal"],
     values: []
+  }
+}];
+
+
+var featureBluestakesVid = [{
+  value: "locates_cx",
+  label: "BlueStakes",
+  table: {
+    visible: false,
+    sortable: false
   }
 }];
 
@@ -1099,6 +1109,7 @@ function identifyFeature1(id) {
   var featureProperties = featureLayer1.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
   var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
+  var videoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
   $.each(featureProperties, function(key, value) {
     if (!value) {
       value = "";
@@ -1147,6 +1158,37 @@ function RestoBeforePics(id) {
 };
 
 
+
+$("#featureBluestakes").click(function() {
+  $("#featureBluestakesModal").modal("show");
+  return false;
+});
+
+
+function featureBluestakes(id) {
+  var featureProperties = featureLayer.getLayer(id).feature.properties;
+  var content = "<table class='table table-striped table-bordered table-condensed'>";
+  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/videos";
+  $.each(featureProperties, function(key, value) {
+    if (!value) {
+      value = "";
+    }
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick='videoGallery(\""+ value +"\")'; return false;'>View Video</a>";
+    }
+    $.each(featureBluestakesVid, function(index, property) {
+      if (key == property.value) {
+        if (property.info !== false) {
+          content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
+        }
+      }
+    });
+  });
+  content += "<table>";
+  $("#featureBlueS").html(content);
+};
+
+
 function photoGallery(photos) {
   var photoArray = [];
   var photoIDs = photos.split("photos=")[1];
@@ -1160,6 +1202,24 @@ function photoGallery(photos) {
     "scrolling": "no",
     beforeShow: function () {
       this.title = "Photo " + (this.index + 1) + " of " + this.group.length + (this.title ? " - " + this.title : "");
+    }
+  });
+  return false;
+};
+
+function videoGallery(photos) {
+  var photoArray = [];
+  var photoIDs = photos.split("videos=")[1];
+  $.each(photoIDs.split("%2C"), function(index, id) {
+    photoArray.push({href: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/videos/" + id});
+  });
+  $.fancybox(photoArray, {
+    "type": "iframe",
+    "showNavArrows": true,
+    "padding": 0,
+    "scrolling": "no",
+    beforeShow: function () {
+      this.title = "Video " + (this.index + 1) + " of " + this.group.length + (this.title ? " - " + this.title : "");
     }
   });
   return false;

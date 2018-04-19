@@ -198,9 +198,48 @@
           </div>
           <div class="modal-body" id="feature-info"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Pictures</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal">BlueStakes</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Signatures</button>
+            <button type="button" class="btn btn-primary" id="featurePictures">Pictures</button>
+            <button type="button" class="btn btn-warning" id="featureBluestakes">BlueStakes</button>
+            <button type="button" class="btn btn-success" id="featureSignatures">Signatures</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="featurePicturesModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Pictures</h4>
+          </div>
+          <div class="modal-body" id="featurePics">
+            <div role="tabpanel">
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#restoBefore" aria-controls="restoBefore" role="tab" data-toggle="tab">Before Pictures</a></li>
+                <li role="presentation"><a href="#restoAfter" aria-controls="restoAfter" role="tab" data-toggle="tab">After Pictures</a></li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="restoBefore"></div>
+                <div role="tabpanel" class="tab-pane" id="restoAfter"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="featureBluestakesModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">BlueStakes Video</h4>
+          </div>
+          <div class="modal-body" id="featureBlueS"></div>
+          <div class="modal-footer">
           </div>
         </div>
       </div>
