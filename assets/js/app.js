@@ -779,6 +779,7 @@ var featureLayer = L.geoJson(null, {
       layer.on({
         click: function (e) {
           identifyFeature(L.stamp(layer));
+          featurePotholePics(L.stamp(layer));
           highlightLayer.clearLayers();
           highlightLayer.addData(featureLayer.getLayer(L.stamp(layer)).toGeoJSON());
         },
