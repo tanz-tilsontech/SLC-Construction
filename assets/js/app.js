@@ -1180,9 +1180,6 @@ function featureBluestakes(id) {
     if (!value) {
       value = "";
     }
-    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
-      value = "<a href='#' onclick='videoGallery(\""+ value +"\")'; return false;'>View Video</a>";
-    }
     $.each(featureBluestakesVid, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
