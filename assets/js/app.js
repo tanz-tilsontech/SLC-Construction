@@ -81,7 +81,6 @@ var properties = [{
   filter: {
     type: "string"
   },
-  info: false
 },
 {
   value: "fulcrum_id",
@@ -116,8 +115,7 @@ var properties = [{
   },
   filter: {
     type: "string"
-  },
-  info: false
+  }
 },
 {
   value: "status_title",
@@ -1116,6 +1114,12 @@ function identifyFeature(id) {
     if (!value) {
       value = "";
     }
+    if (typeof value == "string"  && value.indexOf("https://www.google") === 0) {
+      value = "<a href='" + value + "' target='_blank'>" + "GPS Directions" + "</a>";
+    }
+    if (typeof value == "string"  && value.indexOf("http://www.fulcrumapp") === 0) {
+      value = "<a href='" + value + "' target='_blank'>" + "Fulcrum Record" + "</a>";
+    }
     $.each(properties, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
@@ -1127,26 +1131,6 @@ function identifyFeature(id) {
   content += "<table>";
   $("#feature-info").html(content);
   $("#featureModal").modal("show");
-}
-
-
-function featureDirections(id) {
-  var featureProperties = featureLayer.getLayer(id).feature.properties;
-  var content = "<table class='table table-striped table-bordered table-condensed'>";
-  $.each(featureProperties, function(key, value) {
-    if (!value) {
-      value = "";
-    }
-    $.each(properties, function(index, property) {
-      if (key == property.value) {
-        if (property.value.includes("https://www.google")) {
-          function gpsDirections() {
-            window.open(value)
-          };
-        };
-      }
-    });
-  });
 }
 
 
