@@ -231,14 +231,27 @@
       </div>
     </div>
 
-    <div class="modal fade" id="picturesModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
+    <div class="modal fade" id="featuresPicturesModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">BlueStakes Video</h4>
+            <h4 class="modal-title">Pictures</h4>
           </div>
-          <div class="modal-body" id="picturesModalBody"></div>
+          <div class="modal-body" id="featuresPics">
+            <div role="tabpanel">
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#potholesPic" aria-controls="potholesPic" role="tab" data-toggle="tab">Potholes</a></li>
+                <li role="presentation"><a href="#borelogPic" aria-controls="borelogPic" role="tab" data-toggle="tab">Bore Log</a></li>
+                <li role="presentation"><a href="#fibercablePic" aria-controls="fibercablePic" role="tab" data-toggle="tab">Fiber Cable</a></li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="potholesPic"></div>
+                <div role="tabpanel" class="tab-pane" id="borelogPic"></div>
+                <div role="tabpanel" class="tab-pane" id="fibercablePic"></div>
+              </div>
+            </div>
+          </div>
           <div class="modal-footer">
           </div>
         </div>

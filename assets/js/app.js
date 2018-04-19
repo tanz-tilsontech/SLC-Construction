@@ -522,7 +522,7 @@ var restoBeforeProps = [{
 }];
 
 
-var featurePictures = [{
+var potholePictures = [{
   value: "asphalt_potholes_url",
   label: "Asphalt",
   table: {
@@ -1175,12 +1175,12 @@ function RestoBeforePics(id) {
 
 
 $("#featurePictures").click(function() {
-  $("#picturesModal").modal("show");
+  $("#featuresPicturesModal").modal("show");
   return false;
 });
 
 
-function featurePictures(id) {
+function featurePotholePics(id) {
   var featureProperties = featureLayer.getLayer(id).feature.properties;
   var content = "<table class='table table-striped table-bordered table-condensed'>";
   var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
@@ -1191,7 +1191,7 @@ function featurePictures(id) {
     if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
       value = "<a href='#' onclick='photoGallery(\""+ value +"\")'; return false;'>View Photos</a>";
     }
-    $.each(featurePictures, function(index, property) {
+    $.each(potholePictures, function(index, property) {
       if (key == property.value) {
         if (property.info !== false) {
           content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
@@ -1200,7 +1200,7 @@ function featurePictures(id) {
     });
   });
   content += "<table>";
-  $("#picturesModalBody").html(content);
+  $("#potholesPic").html(content);
 };
 
 
