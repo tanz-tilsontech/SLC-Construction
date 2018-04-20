@@ -1385,7 +1385,7 @@ function videoGallery(photos) {
 
 function signatureGallery(photos) {
   var photoArray = [];
-  var photoIDs = photos.split("photos=")[1];
+  var photoIDs = photos.split("signatures=")[1];
   $.each(photoIDs.split("%2C"), function(index, id) {
     photoArray.push({href: "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/signatures/" + id});
   });
