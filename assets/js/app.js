@@ -565,7 +565,7 @@ var potholePictures = [{
 
 
 var cxSignatures = [{
-  value: "contractor_signature_construction_pass",
+  value: "contractor_signature_construction_pass_url",
   label: "Contractor",
   table: {
     visible: false,
@@ -573,7 +573,7 @@ var cxSignatures = [{
   }
 },
 {
-  value: "qc_signature_construction_pass",
+  value: "qc_signature_construction_pass_url",
   label: "Inspector",
   table: {
     visible: false,
@@ -583,7 +583,7 @@ var cxSignatures = [{
 
 
 var cpSignatures = [{
-  value: "contractor_signature_cable_placement_pass",
+  value: "contractor_signature_cable_placement_pass_url",
   label: "Contractor",
   table: {
     visible: false,
@@ -591,7 +591,7 @@ var cpSignatures = [{
   }
 },
 {
-  value: "qc_signature_cable_placement_pass",
+  value: "qc_signature_cable_placement_pass_url",
   label: "Inspector",
   table: {
     visible: false,
