@@ -19,7 +19,7 @@ function bindUIActions() {
 };
 
 function checkAuth() {
-  if (!sessionStorage.getItem("fulcrum_app_token")) {
+  if (!localStorage.getItem("fulcrum_app_token")) {
     $(document).ready(function() {
       $("#login-modal").modal("show");
     });
@@ -47,12 +47,12 @@ function login() {
     success: function (data) {
       $.each(data.user.contexts, function(index, context) {
         if (context.name == "Tilson SLC") {
-          sessionStorage.setItem("fulcrum_app_token", btoa(context.api_token));
-          sessionStorage.setItem("fulcrum_userfullname", data.user.first_name + " " + data.user.last_name);
-          sessionStorage.setItem("fulcrum_useremail", data.user.email);
+          localStorage.setItem("fulcrum_app_token", btoa(context.api_token));
+          localStorage.setItem("fulcrum_userfullname", data.user.first_name + " " + data.user.last_name);
+          localStorage.setItem("fulcrum_useremail", data.user.email);
         }
       });
-      if (!sessionStorage.getItem("fulcrum_app_token")) {
+      if (!localStorage.getItem("fulcrum_app_token")) {
         alert("This login does not have access to the Tilson DataMap.");
       }
       checkAuth();
@@ -77,7 +77,10 @@ var properties = [{
   label: "Fulcrum Record",
   table: {
     visible: false
-  }
+  },
+  filter: {
+    type: "string"
+  },
 },
 {
   value: "fulcrum_id",
@@ -114,6 +117,9 @@ var properties = [{
   table: {
     visible: false,
     sortable: false
+  },
+  filter: {
+    type: "string"
   }
 },
 {
@@ -927,11 +933,14 @@ $.getJSON(config.geojson, function (data) {
     "values": {
       "Segment Ready": "https://image.ibb.co/iXHCyH/1891c9.png",
       "Segment Not Ready": "https://image.ibb.co/hk21sc/242424.png",
-      "Construction Started": "https://image.ibb.co/mC5Akx/ff8819.png",
-      "Construction QC": "https://image.ibb.co/c3TVkx/294184.png",
+      "Construction Started": "https://image.ibb.co/mC5Akx/ffd300.png",
+      "Constractor CX QC": "https://image.ibb.co/hHRSXc/b3b3b3.png",
+      "Tilson CX QC": "https://image.ibb.co/c3TVkx/ff8819.png",
       "Construction Fix": "https://image.ibb.co/cen1sc/cb0d0c.png",
       "Cable Placement Ready": "https://image.ibb.co/iXHCyH/1891c9.png",
-      "Cable Placement QC": "https://image.ibb.co/c3TVkx/da0796.png",
+      "Cable Placement Started": "https://image.ibb.co/mC5Akx/ffd300.png",
+      "Contractor CP QC": "https://image.ibb.co/hHRSXc/b3b3b3.png",
+      "Tilson CP QC": "https://image.ibb.co/c3TVkx/ff8819.png",
       "Cable Placement Fix": "https://image.ibb.co/cen1sc/cb0d0c.png",
       "Splicing/Testing Pending": "https://image.ibb.co/hxOkJH/87d30f.png"
     }
