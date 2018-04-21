@@ -77,10 +77,7 @@ var properties = [{
   label: "Fulcrum Record",
   table: {
     visible: false
-  },
-  filter: {
-    type: "string"
-  },
+  }
 },
 {
   value: "fulcrum_id",
@@ -117,9 +114,6 @@ var properties = [{
   table: {
     visible: false,
     sortable: false
-  },
-  filter: {
-    type: "string"
   }
 },
 {
