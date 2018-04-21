@@ -927,14 +927,11 @@ $.getJSON(config.geojson, function (data) {
     "values": {
       "Segment Ready": "https://image.ibb.co/iXHCyH/1891c9.png",
       "Segment Not Ready": "https://image.ibb.co/hk21sc/242424.png",
-      "Construction Started": "https://image.ibb.co/mC5Akx/ffd300.png",
-      "Constractor CX QC": "https://image.ibb.co/hHRSXc/b3b3b3.png",
-      "Tilson CX QC": "https://image.ibb.co/c3TVkx/ff8819.png",
+      "Construction Started": "https://image.ibb.co/mC5Akx/ff8819.png",
+      "Construction QC": "https://image.ibb.co/c3TVkx/294184.png",
       "Construction Fix": "https://image.ibb.co/cen1sc/cb0d0c.png",
       "Cable Placement Ready": "https://image.ibb.co/iXHCyH/1891c9.png",
-      "Cable Placement Started": "https://image.ibb.co/mC5Akx/ffd300.png",
-      "Contractor CP QC": "https://image.ibb.co/hHRSXc/b3b3b3.png",
-      "Tilson CP QC": "https://image.ibb.co/c3TVkx/ff8819.png",
+      "Cable Placement QC": "https://image.ibb.co/c3TVkx/da0796.png",
       "Cable Placement Fix": "https://image.ibb.co/cen1sc/cb0d0c.png",
       "Splicing/Testing Pending": "https://image.ibb.co/hxOkJH/87d30f.png"
     }
