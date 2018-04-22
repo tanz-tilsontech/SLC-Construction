@@ -904,21 +904,21 @@ var SLCLLDRoute = L.tileLayer('http://ttm-tileify-proxy1.herokuapp.com/tiles/{z}
 var highlightLayer = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
     return L.circleMarker(latlng, {
-      radius: 5,
+      radius: 7,
       color: "#FFF",
-      weight: 2,
+      weight: 3,
       opacity: 1,
-      fillColor: "#00FFFF",
+      fillColor: "#ff0000",
       fillOpacity: 1,
       clickable: false
     });
   },
   style: function (feature) {
     return {
-      color: "#00FFFF",
-      weight: 2,
+      color: "#ff0000",
+      weight: 3,
       opacity: 1,
-      fillColor: "#00FFFF",
+      fillColor: "#ff0000",
       fillOpacity: 0.5,
       clickable: false
     };
