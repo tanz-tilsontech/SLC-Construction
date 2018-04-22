@@ -527,6 +527,88 @@ var restoBeforeProps = [{
 }];
 
 
+var restoAfterProps = [{
+  value: "dirt_resto_a_cx_url",
+  label: "Dirt",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "concrete_resto_a_cx_url",
+  label: "Concrete",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "asphalt_resto_a_cx_url",
+  label: "Asphalt",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "start_handhole_resto_a_cx_url",
+  label: "Start Handhole",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+},
+{
+  value: "end_handhole_resto_a_cx_url",
+  label: "End Handhole",
+  table: {
+    visible: false,
+    sortable: false
+  },
+  filter: {
+    type: "string",
+    input: "checkbox",
+    vertical: true,
+    multiple: true,
+    operators: ["in", "not_in", "equal", "not_equal"],
+    values: []
+  }
+}];
+
+
 var featureBluestakesVid = [{
   value: "locates_cx_url",
   label: "BlueStakes",
@@ -536,6 +618,39 @@ var featureBluestakesVid = [{
   }
 }];
 
+
+var featureCable = [{
+  value: "cable_start_location_cp_url",
+  label: "Cable Coil (Start Handhole)",
+  table: {
+    visible: false,
+    sortable: false
+  }
+},
+{
+  value: "cable_tag_start_location_cp_url",
+  label: "Cable Tag (Start Handhole)",
+  table: {
+    visible: false,
+    sortable: false
+  }
+},
+{
+  value: "cable_end_location_cp_url",
+  label: "Cable Coil (End Handhole)",
+  table: {
+    visible: false,
+    sortable: false
+  }
+},
+{
+  value: "cable_tag_end_location_cp_url",
+  label: "Cable Tag (End Handhole)",
+  table: {
+    visible: false,
+    sortable: false
+  }
+}];
 
 
 var potholePictures = [{
@@ -835,6 +950,7 @@ var featureLayer = L.geoJson(null, {
           featurePotholePics(L.stamp(layer));
           featureCXSignaturePics(L.stamp(layer));
           featureCPSignaturePics(L.stamp(layer));
+          featureCablePics(L.stamp(layer));
           highlightLayer.clearLayers();
           highlightLayer.addData(featureLayer.getLayer(L.stamp(layer)).toGeoJSON());
         },
@@ -881,6 +997,7 @@ var featureLayer1 = L.geoJson(null, {
         click: function (e) {
           identifyFeature1(L.stamp(layer));
           RestoBeforePics(L.stamp(layer));
+          RestoAfterPics(L.stamp(layer));
           highlightLayer.clearLayers();
           highlightLayer.addData(featureLayer1.getLayer(L.stamp(layer)).toGeoJSON());
         },
@@ -931,18 +1048,14 @@ $.getJSON(config.geojson, function (data) {
   var style = {
     "property": "status",
     "values": {
-      "Segment Ready": "https://image.ibb.co/iXHCyH/1891c9.png",
-      "Segment Not Ready": "https://image.ibb.co/hk21sc/242424.png",
-      "Construction Started": "https://image.ibb.co/mC5Akx/ffd300.png",
-      "Constractor CX QC": "https://image.ibb.co/hHRSXc/b3b3b3.png",
-      "Tilson CX QC": "https://image.ibb.co/c3TVkx/ff8819.png",
-      "Construction Fix": "https://image.ibb.co/cen1sc/cb0d0c.png",
-      "Cable Placement Ready": "https://image.ibb.co/iXHCyH/1891c9.png",
-      "Cable Placement Started": "https://image.ibb.co/mC5Akx/ffd300.png",
-      "Contractor CP QC": "https://image.ibb.co/hHRSXc/b3b3b3.png",
-      "Tilson CP QC": "https://image.ibb.co/c3TVkx/ff8819.png",
-      "Cable Placement Fix": "https://image.ibb.co/cen1sc/cb0d0c.png",
-      "Splicing/Testing Pending": "https://image.ibb.co/hxOkJH/87d30f.png"
+      "Route Ready": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/1891c9.png?raw=true",
+      "Construction Started": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/ffd300.png?raw=true",
+      "Construction QC": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/294184.png?raw=true",
+      "Construction Fix": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/cb0d0c.png?raw=true",
+      "Cable Placement Ready": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/ff8819.png?raw=true",
+      "Cable Placement QC": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/da0796.png?raw=true",
+      "Cable Placement Fix": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/cb0d0c.png?raw=true",
+      "Splicing/Testing Pending": "https://github.com/tanz-tilsontech/SLC-OneFiber-TilsonQC/blob/master/assets/pictures/markers/87d30f.png?raw=true"
     }
   }
   JSON.stringify(style);
@@ -1226,6 +1339,55 @@ function RestoBeforePics(id) {
   });
   content += "<table>";
   $("#restoBefore").html(content);
+};
+
+
+function RestoAfterPics(id) {
+  var featureProperties = featureLayer1.getLayer(id).feature.properties;
+  var content = "<table class='table table-striped table-bordered table-condensed'>";
+  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
+  $.each(featureProperties, function(key, value) {
+    if (!value) {
+      value = "";
+    }
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick='photoGallery(\""+ value +"\")'; return false;'>View Photos</a>";
+    }
+    $.each(restoAfterProps, function(index, property) {
+      if (key == property.value) {
+        if (property.info !== false) {
+          content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
+        }
+      }
+    });
+  });
+  content += "<table>";
+  $("#restoAfter").html(content);
+};
+
+
+
+function featureCablePics(id) {
+  var featureProperties = featureLayer.getLayer(id).feature.properties;
+  var content = "<table class='table table-striped table-bordered table-condensed'>";
+  var photoLink = "https://web.fulcrumapp.com/shares/fb96b48deb5cfb94/photos";
+  $.each(featureProperties, function(key, value) {
+    if (!value) {
+      value = "";
+    }
+    if (typeof value == "string"  && value.indexOf(photoLink) === 0) {
+      value = "<a href='#' onclick='photoGallery(\""+ value +"\")'; return false;'>View Photos</a>";
+    }
+    $.each(featureCable, function(index, property) {
+      if (key == property.value) {
+        if (property.info !== false) {
+          content += "<tr><th>" + property.label + "</th><td>" + value + "</td></tr>";
+        }
+      }
+    });
+  });
+  content += "<table>";
+  $("#fibercablePic").html(content);
 };
 
 
