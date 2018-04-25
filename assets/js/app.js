@@ -1035,13 +1035,11 @@ var featureLayer1 = L.geoJson(null, {
 // Fetch the Routes GeoJSON file
 
 $.getJSON(config.geojson, function (data) {
-  geojson = data
+  geojson = data;
   features = $.map(geojson.features, function(feature) {
-    data.features.filter(function(feature) {
-      return feature.properties.contractor != 'Tilson';
-    });
+    return feature.properties;
   });
-  featureLayer.addData(features);
+  featureLayer.addData(data);
   buildConfig();
   $("#loading-mask").hide();
   var style = {
