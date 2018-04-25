@@ -9,9 +9,6 @@ function bindUIActions() {
     login();
   });
 
-  $("#login-modal").on("shown.bs.modal", function (e) {
-    $(".modal-backdrop").css("opacity", "1");
-  });
 
   $("#login-modal").on("hidden.bs.modal", function (e) {
     $(".modal-backdrop").css("opacity", "");
