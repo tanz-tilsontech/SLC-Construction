@@ -927,9 +927,6 @@ var highlightLayer = L.geoJson(null, {
 
 
 var featureLayer = L.geoJson(null, {
-  filter: function(feature, layer) {
-    if (feature.properties.contractor != "Tilson") return true;
-  },
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, {
       title: feature.properties["status_title_github"],
@@ -1038,11 +1035,13 @@ var featureLayer1 = L.geoJson(null, {
 // Fetch the Routes GeoJSON file
 
 $.getJSON(config.geojson, function (data) {
-  geojson = data;
+  geojson = data.features.filter(function(feature) {
+    return feature.properties.contractor != 'Tilson';
+  });
   features = $.map(geojson.features, function(feature) {
     return feature.properties;
   });
-  featureLayer.addData(data);
+  featureLayer.addData(geojson);
   buildConfig();
   $("#loading-mask").hide();
   var style = {
